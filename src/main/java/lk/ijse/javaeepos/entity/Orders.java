@@ -12,7 +12,7 @@ import java.sql.Date;
 @AllArgsConstructor
 public class Orders {
     private String orderID;
-    private Date orderDate;
+    private String orderDate;
     private String cusID;
 
 }
