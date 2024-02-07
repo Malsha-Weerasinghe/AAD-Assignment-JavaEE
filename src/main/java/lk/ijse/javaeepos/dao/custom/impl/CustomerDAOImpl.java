@@ -1,6 +1,7 @@
 package lk.ijse.javaeepos.dao.custom.impl;
 
 import lk.ijse.javaeepos.dao.DBConnectionPool;
+import lk.ijse.javaeepos.dao.SQLUtil;
 import lk.ijse.javaeepos.dao.custom.CustomerDAO;
 import lk.ijse.javaeepos.entity.Customer;
 
@@ -12,87 +13,29 @@ import java.util.ArrayList;
 
 public class CustomerDAOImpl implements CustomerDAO {
     @Override
-    public ArrayList<Customer> getAll() throws SQLException, ClassNotFoundException {
+    public ArrayList<Customer> getAll(Connection connection) throws SQLException, ClassNotFoundException {
         ArrayList<Customer> allCustomers = new ArrayList<>();
-        try(Connection conn = DBConnectionPool.getConnection()){
-            PreparedStatement pstm = conn.prepareStatement("SELECT * FROM customer");
-            ResultSet rst = pstm.executeQuery();
-            while (rst.next()){
-                allCustomers.add(new Customer(rst.getString(1), rst.getString(2), rst.getString(3), rst.getDouble(4)));
-            }
+        ResultSet rst = SQLUtil.execute(connection,"SELECT * FROM Customer");
+        while (rst.next()) {
+            Customer customer = new Customer(rst.getString(1), rst.getString(2), rst.getString(3),  rst.getInt(4));
+            allCustomers.add(customer);
         }
         return allCustomers;
     }
-    @Override
-    public boolean add(Customer entity) throws SQLException, ClassNotFoundException {
-        try(Connection conn = DBConnectionPool.getConnection()){
-            PreparedStatement pstm = conn.prepareStatement("INSERT INTO customer VALUES (?,?,?,?)");
-            pstm.setString(1, entity.getCusID());
-            pstm.setString(2, entity.getCusName());
-            pstm.setString(3, entity.getCusAddress());
-            pstm.setDouble(4, entity.getCusSalary());
 
-            return pstm.executeUpdate() > 0;
-        }
+    @Override
+    public boolean save(Connection connection, Customer entity) throws SQLException, ClassNotFoundException {
+        return SQLUtil.execute(connection, "INSERT INTO customer VALUES (?,?,?,?)", entity.getCusId(), entity.getCusName(), entity.getCusAddress(), entity.getCusSalary());
+
     }
 
     @Override
-    public boolean update(Customer entity) throws SQLException, ClassNotFoundException {
-        try (Connection conn = DBConnectionPool.getConnection()){
-            PreparedStatement pstm = conn.prepareStatement("UPDATE customer SET cusName=?, cusAddress=?, cusSalary=? WHERE cusID=?");
-            pstm.setString(1, entity.getCusName());
-            pstm.setString(2, entity.getCusAddress());
-            pstm.setDouble(3, entity.getCusSalary());
-            pstm.setString(4, entity.getCusID());
-
-            return pstm.executeUpdate() > 0;
-        }
+    public boolean update(Connection connection, Customer entity) throws SQLException, ClassNotFoundException {
+        return SQLUtil.execute(connection, "UPDATE customer SET customer_name=?, address=?, contact=? WHERE customer_ID=?",entity.getCusName() , entity.getCusAddress(), entity.getCusSalary(), entity.getCusId());
     }
 
     @Override
-    public boolean exist(String id) throws SQLException, ClassNotFoundException {
-        try(Connection conn = DBConnectionPool.getConnection()){
-            PreparedStatement pstm = conn.prepareStatement("SELECT cusID FROM customer WHERE cusID=?");
-            pstm.setString(1, id);
-            ResultSet rst = pstm.executeQuery();
-            return rst.next();
-        }
-    }
-
-    @Override
-    public String generateNewID() throws SQLException, ClassNotFoundException {
-        try(Connection conn = DBConnectionPool.getConnection()){
-            PreparedStatement pstm = conn.prepareStatement("SELECT cusID FROM customer ORDER BY cusID DESC LIMIT 1");
-            ResultSet rst = pstm.executeQuery();
-            if (rst.next()){
-                String id = rst.getString(1);
-                int newCustomerId = Integer.parseInt(id.replace("C00-", "")) + 1;
-                return String.format("C00-%03d", newCustomerId);
-            }else {
-                return "C00-001";
-            }
-        }
-    }
-
-    @Override
-    public boolean delete(String id) throws SQLException, ClassNotFoundException {
-        try(Connection conn = DBConnectionPool.getConnection()){
-            PreparedStatement pstm = conn.prepareStatement("DELETE FROM customer WHERE cusID=?");
-            pstm.setString(1, id);
-            return pstm.executeUpdate() > 0;
-        }
-    }
-
-    @Override
-    public Customer search(String id) throws SQLException, ClassNotFoundException {
-        try(Connection conn = DBConnectionPool.getConnection()){
-            PreparedStatement pstm = conn.prepareStatement("SELECT * FROM customer WHERE cusID=?");
-            pstm.setString(1, id);
-            ResultSet rst = pstm.executeQuery();
-            if (rst.next()){
-                return new Customer(rst.getString(1), rst.getString(2), rst.getString(3), rst.getDouble(4));
-            }
-        }
-        return null;
+    public boolean delete(Connection connection, String Id) throws SQLException, ClassNotFoundException {
+        return SQLUtil.execute(connection, "DELETE FROM customer WHERE customer_ID=?", Id);
     }
 }

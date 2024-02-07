@@ -1,14 +1,15 @@
 package lk.ijse.javaeepos.dao;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface CrudDAO <T> extends lk.ijse.javaeepos.dao.SuperDAO {
-    public ArrayList<T> getAll() throws SQLException, ClassNotFoundException;
-    public boolean add(T entity) throws SQLException, ClassNotFoundException;
-    public boolean update(T entity) throws SQLException, ClassNotFoundException;
-    public boolean exist(String id) throws SQLException, ClassNotFoundException;
-    public String generateNewID() throws SQLException, ClassNotFoundException;
-    public boolean delete(String id) throws SQLException, ClassNotFoundException;
-    public T search(String id) throws SQLException, ClassNotFoundException;
+    public ArrayList<T> getAll(Connection connection) throws SQLException, ClassNotFoundException;
+
+    public boolean save(Connection connection,T entity) throws SQLException, ClassNotFoundException;
+
+    public boolean update(Connection connection,T entity) throws SQLException, ClassNotFoundException;
+
+    public boolean delete(Connection connection ,String Id) throws SQLException, ClassNotFoundException;
 }

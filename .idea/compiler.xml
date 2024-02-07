@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="JavaEE-POS" />
+        <module name="AAD-Assignment-JavaEE" />
       </profile>
     </annotationProcessing>
   </component>

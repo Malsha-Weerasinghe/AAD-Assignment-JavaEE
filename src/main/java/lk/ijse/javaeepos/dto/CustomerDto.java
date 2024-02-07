@@ -2,51 +2,61 @@ package lk.ijse.javaeepos.dto;
 
 import java.io.Serializable;
 
-public class CustomerDto implements Serializable {
-    private String id;
-    private String name;
-    private String address;
-    private double salary;
+public class CustomerDto {
 
-    public CustomerDto() {
+    private String cusId;
+    private String cusName;
+    private String cusAddress;
+    private double cusSalary;
+
+
+
+    public CustomerDto(String cusId, String cusName, String cusAddress, double cusSalary) {
+        this.cusId = cusId;
+        this.cusName = cusName;
+        this.cusAddress = cusAddress;
+        this.cusSalary = cusSalary;
     }
 
-    public CustomerDto(String id, String name, String address, double salary) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-        this.salary = salary;
+    public String getCusId() {
+        return cusId;
     }
 
-    public String getId() {
-        return id;
+    public void setCusId(String cusId) {
+        this.cusId = cusId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getCusName() {
+        return cusName;
     }
 
-    public String getName() {
-        return name;
+    public void setCusName(String cusName) {
+        this.cusName = cusName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getCusAddress() {
+        return cusAddress;
     }
 
-    public String getAddress() {
-        return address;
+    public void setCusAddress(String cusAddress) {
+        this.cusAddress = cusAddress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public double getCusSalary() {
+        return cusSalary;
     }
 
-    public double getSalary() {
-        return salary;
+    public void setCusSalary(double cusSalary) {
+        this.cusSalary = cusSalary;
     }
 
-    public void setSalary(double salary) {
-        this.salary = salary;
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "cusId='" + cusId + '\'' +
+                ", cusName='" + cusName + '\'' +
+                ", cusAddress='" + cusAddress + '\'' +
+                ", cusSalary=" + cusSalary +
+                '}';
     }
 }
