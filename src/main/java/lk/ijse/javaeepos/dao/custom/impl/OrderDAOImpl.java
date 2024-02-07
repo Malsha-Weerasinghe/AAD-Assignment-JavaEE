@@ -23,7 +23,7 @@ public class OrderDAOImpl implements OrderDAO {
         ArrayList<Orders> allOrders = new ArrayList<>();
         ResultSet rst = SQLUtil.execute(connection,"SELECT * FROM Orders");
         while (rst.next()) {
-            Orders orders = new Orders(rst.getString(1), rst.getDate(2), rst.getString(3));
+            Orders orders = new Orders(rst.getString(1), rst.getString(2), rst.getString(3));
             allOrders.add(orders);
         }
         return allOrders;
