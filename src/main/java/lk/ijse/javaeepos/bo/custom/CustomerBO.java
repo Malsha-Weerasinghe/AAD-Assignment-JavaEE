@@ -6,7 +6,7 @@ import lk.ijse.javaeepos.dto.CustomerDto;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface CustomerBo extends SuperBO {
+public interface CustomerBO extends SuperBO {
     public ArrayList<CustomerDto> getAllCustomers() throws SQLException, ClassNotFoundException;
 
     public boolean addCustomer(CustomerDto dto) throws SQLException, ClassNotFoundException ;
