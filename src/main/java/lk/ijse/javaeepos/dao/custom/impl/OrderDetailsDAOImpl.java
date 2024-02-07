@@ -1,9 +1,9 @@
 package lk.ijse.javaeepos.dao.custom.impl;
 
-import lk.ijse.javaeethogakade.dao.DBConnectionPool;
-import lk.ijse.javaeethogakade.dao.custom.OrderDetailsDAO;
-import lk.ijse.javaeethogakade.db.DBConnection;
-import lk.ijse.javaeethogakade.entity.OrderDetails;
+import lk.ijse.javaeepos.dao.DBConnectionPool;
+import lk.ijse.javaeepos.dao.custom.OrderDetailsDAO;
+import lk.ijse.javaeepos.db.DBConnection;
+import lk.ijse.javaeepos.entity.OrderDetails;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

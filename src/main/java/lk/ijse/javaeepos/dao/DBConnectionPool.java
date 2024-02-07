@@ -10,9 +10,9 @@ public class DBConnectionPool {
 
     static {
         BasicDataSource basicDataSource = new BasicDataSource();
-        basicDataSource.setUrl("jdbc:mysql://localhost:3306/TestThogaKade");
+        basicDataSource.setUrl("jdbc:mysql://localhost:3306/posdb");
         basicDataSource.setUsername("root");
-        basicDataSource.setPassword("12345678");
+        basicDataSource.setPassword("1234");
         basicDataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         basicDataSource.setMaxTotal(5);
         basicDataSource.setMaxIdle(2);
