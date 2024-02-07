@@ -1,6 +1,6 @@
 package lk.ijse.javaeepos.dao.custom.impl;
 
-import lk.ijse.javaeepos.dao.DBConnectionPool;
+
 import lk.ijse.javaeepos.dao.SQLUtil;
 import lk.ijse.javaeepos.dao.custom.CustomerDAO;
 import lk.ijse.javaeepos.entity.Customer;
@@ -31,11 +31,11 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public boolean update(Connection connection, Customer entity) throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute(connection, "UPDATE customer SET customer_name=?, address=?, contact=? WHERE customer_ID=?",entity.getCusName() , entity.getCusAddress(), entity.getCusSalary(), entity.getCusId());
+        return SQLUtil.execute(connection, "UPDATE customer SET cusName=?, cusAddress=?, cusSalary=? WHERE cusID=?",entity.getCusName() , entity.getCusAddress(), entity.getCusSalary(), entity.getCusId());
     }
 
     @Override
     public boolean delete(Connection connection, String Id) throws SQLException, ClassNotFoundException {
-        return SQLUtil.execute(connection, "DELETE FROM customer WHERE customer_ID=?", Id);
+        return SQLUtil.execute(connection, "DELETE FROM customer WHERE cusID=?", Id);
     }
 }

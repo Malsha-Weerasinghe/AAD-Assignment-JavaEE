@@ -1,7 +1,5 @@
 package lk.ijse.javaeepos.dao.custom.impl;
 
-import lk.ijse.javaeepos.dao.DAOFactory;
-import lk.ijse.javaeepos.dao.DBConnectionPool;
 import lk.ijse.javaeepos.dao.SQLUtil;
 import lk.ijse.javaeepos.dao.custom.ItemDAO;
 import lk.ijse.javaeepos.dao.custom.OrderDAO;

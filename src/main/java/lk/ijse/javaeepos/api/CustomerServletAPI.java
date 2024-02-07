@@ -46,10 +46,10 @@ public class CustomerServletAPI extends HttpServlet {
             for (CustomerDto customerDTO:all){
                 JsonObjectBuilder customer = Json.createObjectBuilder();
 
-                customer.add("id",customerDTO.getCusId());
-                customer.add("name",customerDTO.getCusName());
-                customer.add("address",customerDTO.getCusAddress());
-                customer.add("salary",customerDTO.getCusSalary());
+                customer.add("cusId",customerDTO.getCusId());
+                customer.add("cusName",customerDTO.getCusName());
+                customer.add("cusAddress",customerDTO.getCusAddress());
+                customer.add("cusSalary",customerDTO.getCusSalary());
 
                 allCustomers.add(customer.build());
             }
@@ -77,21 +77,21 @@ public class CustomerServletAPI extends HttpServlet {
         BasicDataSource pool = (BasicDataSource) servletContext.getAttribute("dbcp");
 
 
-        String id = req.getParameter("id");
-        String name = req.getParameter("name");
-        String address = req.getParameter("address");
-        String salary = req.getParameter("salary");
+        String cusId = req.getParameter("cusId");
+        String cusName = req.getParameter("cusName");
+        String cusAddress = req.getParameter("cusAddress");
+        String cusSalary = req.getParameter("cusSalary");
 
-        System.out.printf("id=%s ,name=%s ,address=%s\n" , id,name,address);
+        System.out.printf("cusId=%s ,cusName=%s ,cusAddress=%s\n" , cusId,cusName,cusAddress);
 
 
         try (Connection connection = pool.getConnection()){
-            PreparedStatement stn = connection.prepareStatement("INSERT INTO customer(id,name,address,salary) VALUES(?,?,?,?)");
+            PreparedStatement stn = connection.prepareStatement("INSERT INTO customer(cusId,cusName,cusAddress,cusSalary) VALUES(?,?,?,?)");
 
-            stn.setString(1,id);
-            stn.setString(2,name);
-            stn.setString(3,address);
-            stn.setString(4,salary);
+            stn.setString(1,cusId);
+            stn.setString(2,cusName);
+            stn.setString(3,cusAddress);
+            stn.setString(4,cusSalary);
 
             stn.executeUpdate();
             resp.getWriter().write("print!!");
@@ -115,7 +115,7 @@ public class CustomerServletAPI extends HttpServlet {
         String id = req.getParameter("id");
 
         try(Connection connection = pool.getConnection()) {
-            PreparedStatement stm = connection.prepareStatement("DELETE FROM customer WHERE id=?");
+            PreparedStatement stm = connection.prepareStatement("DELETE FROM customer WHERE cusId=?");
 
             stm.setString(1,id);
 
@@ -136,10 +136,10 @@ public class CustomerServletAPI extends HttpServlet {
         JsonReader reader = Json.createReader(req.getReader());
         JsonObject jsonObject = reader.readObject();
 
-        String id = jsonObject.getString("id");
-        String name = jsonObject.getString("name");
-        String address = jsonObject.getString("address");
-        Double salary = Double.valueOf(jsonObject.getString("salary"));
+        String cusId = jsonObject.getString("cusId");
+        String cusName = jsonObject.getString("cusName");
+        String cusAddress = jsonObject.getString("cusAddress");
+        Double cusSalary = Double.valueOf(jsonObject.getString("cusSalary"));
 
         resp.addHeader("Access-Control-Allow-Origin", "*");
         resp.addHeader("Access-Control-Allow-Methods", "DELETE,PUT,GET");
@@ -149,16 +149,16 @@ public class CustomerServletAPI extends HttpServlet {
         BasicDataSource pool = (BasicDataSource) servletContext.getAttribute("dbcp");
 
 
-        System.out.printf("id=%s ,name=%s ,address=%s ,salary=%s \n" , id,name,address,salary);
+        System.out.printf("id=%s ,name=%s ,address=%s ,salary=%s \n" , cusId,cusName,cusAddress,cusSalary);
 
         try(Connection connection = pool.getConnection()) {
-            PreparedStatement stn = connection.prepareStatement("UPDATE customer SET name=?,address=?,salary=? WHERE id=?");
+            PreparedStatement stn = connection.prepareStatement("UPDATE customer SET cusName=?,cusAddress=?,cusSalary=? WHERE cusId=?");
 
 
-            stn.setString(1,name);
-            stn.setString(2,address);
-            stn.setDouble(3,salary);
-            stn.setString(4,id);
+            stn.setString(1,cusName);
+            stn.setString(2,cusAddress);
+            stn.setDouble(3,cusSalary);
+            stn.setString(4,cusId);
 
             stn.executeUpdate();
             resp.getWriter().write("print!!");
