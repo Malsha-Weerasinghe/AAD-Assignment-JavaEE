@@ -1,7 +1,7 @@
 package lk.ijse.javaeepos.servlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lk.ijse.javaeepos.dto.customerDto;
+import lk.ijse.javaeepos.dto.CustomerDto;
 import lk.ijse.javaeepos.util.SQLUtil;
 
 import javax.servlet.annotation.WebServlet;
@@ -30,7 +30,7 @@ public class customerServlet extends HttpServlet {
                 jsonInput.append(line);
             }
             ObjectMapper objectMapper = new ObjectMapper();
-            customerDto customerDto = objectMapper.readValue(jsonInput.toString(), customerDto.class);
+            CustomerDto customerDto = objectMapper.readValue(jsonInput.toString(), CustomerDto.class);
 
             String sql = "INSERT INTO customer (cusID, cusName, cusAddress, cusSalary) VALUES (?, ?, ?, ?)";
             Boolean result = SQLUtil.execute(sql, customerDto.getId(), customerDto.getName(), customerDto.getAddress(), customerDto.getSalary());

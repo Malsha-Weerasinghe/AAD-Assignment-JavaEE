@@ -2,16 +2,16 @@ package lk.ijse.javaeepos.dto;
 
 import java.io.Serializable;
 
-public class customerDto implements Serializable {
+public class CustomerDto implements Serializable {
     private String id;
     private String name;
     private String address;
     private double salary;
 
-    public customerDto() {
+    public CustomerDto() {
     }
 
-    public customerDto(String id, String name, String address, double salary) {
+    public CustomerDto(String id, String name, String address, double salary) {
         this.id = id;
         this.name = name;
         this.address = address;
